@@ -1,0 +1,42 @@
+DROP DATABASE IF EXISTS loginregistrobasico;
+CREATE DATABASE loginregistrobasico;
+USE loginregistrobasico;
+
+CREATE TABLE tb_roles(
+    id_rol INT AUTO_INCREMENT,
+    nombre_rol VARCHAR(50),
+    PRIMARY KEY (id_rol)
+);
+
+CREATE TABLE tb_usuarios(
+    id_usuario INT AUTO_INCREMENT,
+    nombre_usuario VARCHAR(99),
+    apellido_usuario VARCHAR(99),
+    auth_usuario varchar(99) unique,
+    correo_usuario VARCHAR(99) unique,
+    contrapassword_usuario VARCHAR(99),
+    fecharegistro_usuario DATETIME,
+    PRIMARY KEY (id_usuario)
+);
+
+CREATE TABLE tb_rolesxusuario(
+	id_usuariox INT ,
+    id_rolx INT,
+    PRIMARY KEY (id_usuariox,id_rolx),
+    CONSTRAINT fk_idrolxroles FOREIGN KEY (id_rolx) REFERENCES tb_roles(id_rol),
+    CONSTRAINT fk_idusuxusuario FOREIGN KEY (id_usuariox) REFERENCES tb_usuarios(id_usuario)
+);	
+
+insert into tb_roles values (1,'Administrador');
+insert into tb_roles values (2,'Cliente');
+
+
+INSERT INTO tb_usuarios VALUES (null, 'ADMINISTRADOR', 'ADMINISTRADOR','administrator', 'admin@reservas.com', '$2a$10$DOMDxjYyfZ/e7RcBfUpzqeaCs8pLgcizuiQWXPkU35nOhZlFcE9MS', '2024-08-05 09:00:00'); 
+INSERT INTO tb_usuarios VALUES (null, 'John', 'Doe','Jdoe', 'johndoe@reservas.com', 'usuario123', '2024-08-05 12:00:00');
+
+
+insert into tb_rolesxusuario values (1,1);
+insert into tb_rolesxusuario values (2,2);
+
+select * from tb_rolesxusuario;
+select * from tb_usuarios;
